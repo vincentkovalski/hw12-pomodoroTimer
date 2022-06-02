@@ -39,6 +39,13 @@ class ViewController: UIViewController {
     }
 
     private func setupLayout() {
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        timeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 20).isActive = true
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
     }
 
