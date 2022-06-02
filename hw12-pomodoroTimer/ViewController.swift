@@ -15,13 +15,35 @@ class ViewController: UIViewController {
 
     private let button = UIButton(type: .system)
 
+    private var timer = Timer()
+
+    private var counter = 0 {
+        willSet {
+            timeLabel.text = newValue < 10 ? "00:0\(newValue)" : "00:\(newValue)"
+        }
+    }
+
+    private var isWorkTime = true {
+        willSet {
+            timeLabel.text = "\(newValue)"
+        }
+    }
+
+    private var isStarted = false {
+        didSet {
+            button.isSelected = isStarted
+        }
+    }
+
+
+
 
     // MARK: - Views
 
 
 
 
-    // MAKR: - Lifecycle
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +72,49 @@ class ViewController: UIViewController {
     }
 
     private func setupView() {
+        isWorkTime = true
+        counter = 15
 
         timeLabel.font = .systemFont(ofSize: 34)
 
         button.setImage(UIImage(systemName: "pause"), for: .selected)
         button.setImage(UIImage(systemName: "play"), for: .normal)
 
+
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
     }
+
+    // MARK: - Actions
+
+    @objc private func buttonAction() {
+
+        timer = Timer.scheduledTimer(
+            timeInterval: 1,
+            target: self,
+            selector: #selector(timerAction),
+            userInfo: nil,
+            repeats: true
+        )
+
+        isStarted = !isStarted
+    }
+
+    @objc private func timerAction() {
+
+        guard counter > 0 else {
+            isStarted = !isStarted
+            isWorkTime = !isWorkTime
+            timer.invalidate()
+            return
+        }
+
+        counter -= 1
+
+        }
+
+
+
 
 
 }
