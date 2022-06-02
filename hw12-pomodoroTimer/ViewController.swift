@@ -114,8 +114,25 @@ class ViewController: UIViewController {
         }
 
 
-
-
-
 }
 
+// MARK: - Constants
+
+extension ViewController {
+    enum Metric {
+        static let fontsize: CGFloat = 34
+        static let buttonTopOffset: CGFloat = 20
+        static let workTimeValue: Int = 15
+        static let relaxTimeValue: Int = 5
+    }
+
+    enum Icon {
+        static let pauseIcon = UIImage(systemName: "pause")
+        static let startIcon = UIImage(systemName: "play")
+    }
+
+    enum Colors {
+        static let workStateColor = UIColor.systemRed
+        static let relaxStateColor = UIColor.systemGreen
+    }
+}
