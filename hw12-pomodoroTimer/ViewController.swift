@@ -25,7 +25,9 @@ class ViewController: UIViewController {
 
     private var isWorkTime = true {
         willSet {
-            timeLabel.text = "\(newValue)"
+            timeLabel.textColor = newValue ? Colors.workStateColor : Colors.relaxStateColor
+            button.tintColor = newValue ? Colors.workStateColor : Colors.relaxStateColor
+            counter = newValue ? Metric.workTimeValue : Metric.relaxTimeValue
         }
     }
 
@@ -88,6 +90,7 @@ class ViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func buttonAction() {
+
 
         timer = Timer.scheduledTimer(
             timeInterval: 1,
