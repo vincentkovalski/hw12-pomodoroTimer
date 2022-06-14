@@ -12,11 +12,8 @@ class ViewController: UIViewController {
     // MARK: - Properties
 
     private let timeLabel = UILabel()
-
     private let button = UIButton(type: .system)
-
     private var timer = Timer()
-
     private var counter = 0 {
         willSet {
             timeLabel.text = newValue < 10 ? "00:0\(newValue)" : "00:\(newValue)"
@@ -91,16 +88,22 @@ class ViewController: UIViewController {
 
     @objc private func buttonAction() {
 
+        if isStarted == false {
+            timer = Timer.scheduledTimer(
+                timeInterval: 1,
+                target: self,
+                selector: #selector(timerAction),
+                userInfo: nil,
+                repeats: true
+            )
+            isStarted = !isStarted
+        } else {
+            timer.invalidate()
+            isStarted = !isStarted
+        }
 
-        timer = Timer.scheduledTimer(
-            timeInterval: 1,
-            target: self,
-            selector: #selector(timerAction),
-            userInfo: nil,
-            repeats: true
-        )
 
-        isStarted = !isStarted
+
     }
 
     @objc private func timerAction() {
